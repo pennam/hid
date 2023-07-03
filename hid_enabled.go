@@ -135,7 +135,7 @@ func Open(vendorID uint16, productID uint16) (*Device, error) {
 		return nil, errors.New("hidapi: failed to open device")
 	}
 	return &Device{
-		DeviceInfo: info,
+		DeviceInfo: nil,
 		device:     device,
 	}, nil
 }
