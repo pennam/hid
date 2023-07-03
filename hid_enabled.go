@@ -126,7 +126,7 @@ func (info DeviceInfo) Open() (*Device, error) {
 }
 
 // Open connects to an HID device by its VID and PID.
-func Open() (vendorID uint16, productID uint16) []DeviceInfo {
+func Open(vendorID uint16, productID uint16) []DeviceInfo {
 	enumerateLock.Lock()
 	defer enumerateLock.Unlock()
 
