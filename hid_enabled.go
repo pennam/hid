@@ -130,7 +130,7 @@ func Open(vendorID uint16, productID uint16) (*Device, error) {
 	enumerateLock.Lock()
 	defer enumerateLock.Unlock()
 
-	var infos []DeviceInfo
+	var infos DeviceInfo
 
 	device := C.hid_open(C.ushort(vendorID), C.ushort(productID), nil)
 	if device == nil {
