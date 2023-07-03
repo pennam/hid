@@ -130,12 +130,14 @@ func Open(vendorID uint16, productID uint16) (*Device, error) {
 	enumerateLock.Lock()
 	defer enumerateLock.Unlock()
 
+	var infos []DeviceInfo
+
 	device := C.hid_open(C.ushort(vendorID), C.ushort(productID), nil)
 	if device == nil {
 		return nil, errors.New("hidapi: failed to open device")
 	}
 	return &Device{
-		DeviceInfo: nil,
+		DeviceInfo: infos,
 		device:     device,
 	}, nil
 }
