@@ -125,6 +125,23 @@ func (info DeviceInfo) Open() (*Device, error) {
 	}, nil
 }
 
+// Open connects to an HID device by its VID and PID.
+func Open(vendorID uint16, productID uint16) (*Device, error) {
+	enumerateLock.Lock()
+	defer enumerateLock.Unlock()
+
+	var infos DeviceInfo
+
+	device := C.hid_open(C.ushort(vendorID), C.ushort(productID), nil)
+	if device == nil {
+		return nil, errors.New("hidapi: failed to open device")
+	}
+	return &Device{
+		DeviceInfo: infos,
+		device:     device,
+	}, nil
+}
+
 // Device is a live HID USB connected device handle.
 type Device struct {
 	DeviceInfo // Embed the infos for easier access
