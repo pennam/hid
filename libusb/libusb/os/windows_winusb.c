@@ -3460,7 +3460,7 @@ static int hid_init(int sub_api, struct libusb_context *ctx)
 	DLL_LOAD_FUNC(hid, HidD_GetSerialNumberString, TRUE);
 	DLL_LOAD_FUNC(hid, HidP_GetCaps, TRUE);
 	DLL_LOAD_FUNC(hid, HidD_SetNumInputBuffers, TRUE);
-	DLL_LOAD_FUNC(hid, HidD_SetFeature, TRUE);
+	DLL_LOAD_FUNC(hid, HidD_SetOutputReport, TRUE);
 	DLL_LOAD_FUNC(hid, HidD_GetFeature, TRUE);
 	DLL_LOAD_FUNC(hid, HidD_GetPhysicalDescriptor, TRUE);
 	DLL_LOAD_FUNC(hid, HidD_GetInputReport, FALSE);

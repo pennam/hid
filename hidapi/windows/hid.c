@@ -107,7 +107,7 @@ extern "C" {
 	typedef BOOLEAN (__stdcall *HidD_GetSerialNumberString_)(HANDLE device, PVOID buffer, ULONG buffer_len);
 	typedef BOOLEAN (__stdcall *HidD_GetManufacturerString_)(HANDLE handle, PVOID buffer, ULONG buffer_len);
 	typedef BOOLEAN (__stdcall *HidD_GetProductString_)(HANDLE handle, PVOID buffer, ULONG buffer_len);
-	typedef BOOLEAN (__stdcall *HidD_SetFeature_)(HANDLE handle, PVOID data, ULONG length);
+	typedef BOOLEAN (__stdcall *HidD_SetOutputReport_)(HANDLE handle, PVOID data, ULONG length);
 	typedef BOOLEAN (__stdcall *HidD_GetFeature_)(HANDLE handle, PVOID data, ULONG length);
 	typedef BOOLEAN (__stdcall *HidD_GetIndexedString_)(HANDLE handle, ULONG string_index, PVOID buffer, ULONG buffer_len);
 	typedef BOOLEAN (__stdcall *HidD_GetPreparsedData_)(HANDLE handle, PHIDP_PREPARSED_DATA *preparsed_data);
@@ -119,7 +119,7 @@ extern "C" {
 	static HidD_GetSerialNumberString_ HidD_GetSerialNumberString;
 	static HidD_GetManufacturerString_ HidD_GetManufacturerString;
 	static HidD_GetProductString_ HidD_GetProductString;
-	static HidD_SetFeature_ HidD_SetFeature;
+	static HidD_SetOutputReport_ HidD_SetOutputReport;
 	static HidD_GetFeature_ HidD_GetFeature;
 	static HidD_GetIndexedString_ HidD_GetIndexedString;
 	static HidD_GetPreparsedData_ HidD_GetPreparsedData;
@@ -209,7 +209,7 @@ static int lookup_functions()
 		RESOLVE(HidD_GetSerialNumberString);
 		RESOLVE(HidD_GetManufacturerString);
 		RESOLVE(HidD_GetProductString);
-		RESOLVE(HidD_SetFeature);
+		RESOLVE(HidD_SetOutputReport);
 		RESOLVE(HidD_GetFeature);
 		RESOLVE(HidD_GetIndexedString);
 		RESOLVE(HidD_GetPreparsedData);
@@ -748,9 +748,9 @@ int HID_API_EXPORT HID_API_CALL hid_set_nonblocking(hid_device *dev, int nonbloc
 
 int HID_API_EXPORT HID_API_CALL hid_send_feature_report(hid_device *dev, const unsigned char *data, size_t length)
 {
-	BOOL res = HidD_SetFeature(dev->device_handle, (PVOID)data, length);
+	BOOL res = HidD_SetOutputReport(dev->device_handle, (PVOID)data, length);
 	if (!res) {
-		register_error(dev, "HidD_SetFeature");
+		register_error(dev, "HidD_SetOutputReport");
 		return -1;
 	}
 
