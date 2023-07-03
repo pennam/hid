@@ -34,6 +34,12 @@ func (info DeviceInfo) Open() (*Device, error) {
 	return nil, ErrUnsupportedPlatform
 }
 
+// Open connects to an HID device by its VID and PID. On platforms that this file
+// implements the method just returns an error.
+func Open() (vendorID uint16, productID uint16) []DeviceInfo {
+	return nil, ErrUnsupportedPlatform
+}
+
 // Close releases the HID USB device handle. On platforms that this file implements
 // the method is just a noop.
 func (dev *Device) Close() error { return nil }
